@@ -32,8 +32,8 @@ const initiateSearch = async () => {
     var data = [];
     for (var n = 0; n < config.queries.length; n++) {
         console.log("Sleeping for a minute");
-        await sleep(61000);
-        var stocks = await searchStocks(config.queries[n]);
+        config.exactMatch ? (((n+1) % 5 == 0) ? await sleep(61000) : false) : await sleep(61000);
+        var stocks = config.exactMatch ? {bestMatches: [{"1. symbol": config.queries[n]}]} : await searchStocks(config.queries[n]);
         stocks = stocks.bestMatches;
         var stopperCount = 0;
         for (var i = 0; i < stocks.length; i++) {
