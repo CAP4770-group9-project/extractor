@@ -47,12 +47,12 @@ const initiateSearch = async () => {
             stocks = config.exactMatch
                 ? { bestMatches: [{ "1. symbol": config.queries[n] }] }
                 : await searchStocks(config.queries[n]);
+            stocks = stocks.bestMatches;
         } catch (error) {
             console.log(error);
             console.log(config.queries[n] + " FAILED!");
             continue;
         }
-        stocks = stocks.bestMatches;
         var stopperCount = 0;
         for (var i = 0; i < stocks.length; i++) {
             console.log(`Pulling data for stock #${i}: ${stocks[i]["1. symbol"]}`);
