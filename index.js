@@ -24,7 +24,7 @@ const searchStocks = async (query) => {
 };
 
 const retrieveStockData = async (symbol) => {
-    response = await axios.get(`https://www.alphavantage.co/query?function=${config.data_api}&symbol=${symbol}&apikey=${config.key}`);
+    response = await axios.get(`https://www.alphavantage.co/query?function=${config.data_api}&symbol=${symbol}&outputsize=${config.outputsize}&apikey=${config.key}`);
     return response.data;
 };
 
