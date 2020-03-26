@@ -35,7 +35,8 @@ const retrieveStockData = async symbol => {
 const initiateSearch = async () => {
   var data = [];
   for (var n = 0; n < config.queries.length; n++) {
-    console.log("Sleeping for a minute");
+    console.log(`Pulling data for query #${n}: ${config.queries[n]}`);
+    console.log(`${n+1}/${config.queries.length} queries processed`);
     config.exactMatch
       ? (n + 1) % 5 == 0
         ? await sleep(61000)
@@ -54,7 +55,6 @@ const initiateSearch = async () => {
         } stocks processed`
       );
       if (i == 3 || stopperCount == 5) {
-        console.log("Sleeping for a minute");
         stopperCount = 0;
         await sleep(61000);
       }
@@ -85,6 +85,7 @@ const initiateSearch = async () => {
 };
 
 function sleep(ms) {
+  console.log(`Sleeping for ${ms/1000} seconds`);
   return new Promise(resolve => {
     setTimeout(resolve, ms);
   });
