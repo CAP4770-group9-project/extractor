@@ -69,26 +69,27 @@ const initiateSearch = async () => {
             var pricesData;
             try {
                 pricesData = await retrieveStockData(stocks[i]["1. symbol"]);
+                //   console.log(pricesData);
+                var tempKeys = Object.keys(pricesData);
+                var dateStamps = Object.keys(pricesData[tempKeys[1]]);
+                for (var j = 0; j < dateStamps.length; j++) {
+                    data.push({
+                        symbol: stocks[i]["1. symbol"],
+                        date: dateStamps[j],
+                        open: pricesData[tempKeys[1]][dateStamps[j]]["1. open"],
+                        close: pricesData[tempKeys[1]][dateStamps[j]]["4. close"],
+                        high: pricesData[tempKeys[1]][dateStamps[j]]["2. high"],
+                        low: pricesData[tempKeys[1]][dateStamps[j]]["3. low"],
+                        volume: pricesData[tempKeys[1]][dateStamps[j]]["5. volume"]
+                    });
+                }
             } catch (error) {
                 console.log(error);
                 console.log(stocks[i]["1. symbol"] + " FAILED!");
                 continue;
             }
-            //   console.log(pricesData);
-            var tempKeys = Object.keys(pricesData);
-            var dateStamps = Object.keys(pricesData[tempKeys[1]]);
-            for (var j = 0; j < dateStamps.length; j++) {
-                data.push({
-                    symbol: stocks[i]["1. symbol"],
-                    date: dateStamps[j],
-                    open: pricesData[tempKeys[1]][dateStamps[j]]["1. open"],
-                    close: pricesData[tempKeys[1]][dateStamps[j]]["4. close"],
-                    high: pricesData[tempKeys[1]][dateStamps[j]]["2. high"],
-                    low: pricesData[tempKeys[1]][dateStamps[j]]["3. low"],
-                    volume: pricesData[tempKeys[1]][dateStamps[j]]["5. volume"]
-                });
-            }
         }
+
     }
     // var csvFile = await parse(data, {fields: fields});
     // fs.createWriteStream("extract.csv");
